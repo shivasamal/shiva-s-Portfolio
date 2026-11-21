@@ -147,7 +147,6 @@ if (byte) {
   });
 }
 
-const inquiry = document.querySelector('#inquiry');
 
 // Animate the wrapper so playing a gesture never interrupts scroll positioning.
 for (const button of document.querySelectorAll('.play-pose')) {
@@ -194,37 +193,4 @@ for (const button of document.querySelectorAll('.play-pose')) {
     }, { threshold: .85 });
     entrance.observe(pose);
   }
-}
-if (inquiry) {
-  let draft = '';
-  const feedback = inquiry.querySelector('.draft-feedback');
-  const copy = document.querySelector('#copy');
-  inquiry.addEventListener('input', () => { feedback.hidden = true; });
-  inquiry.addEventListener('submit', event => {
-    event.preventDefault();
-    const fields = new FormData(inquiry);
-    const name = fields.get('name').trim();
-    const kind = fields.get('type');
-    draft = 'Hi Shiva,\n\nI’m interested in a ' + kind.toLowerCase() + '.\n\n' +
-      fields.get('details').trim() + '\n\n' + name + '\n' + fields.get('email').trim();
-    feedback.hidden = false;
-    copy.textContent = 'Copy inquiry';
-    window.location.href = 'mailto:Shivasamala03@gmail.com?subject=' +
-      encodeURIComponent(kind + ' inquiry from ' + name) + '&body=' + encodeURIComponent(draft);
-  });
-  copy.addEventListener('click', async () => {
-    try {
-      await navigator.clipboard.writeText(draft);
-      copy.textContent = 'Inquiry copied';
-    } catch {
-      const field = document.createElement('textarea');
-      field.readOnly = true;
-      field.setAttribute('aria-label', 'Select and copy your inquiry');
-      field.value = draft;
-      feedback.querySelector('textarea')?.remove();
-      feedback.append(field);
-      field.focus();
-      field.select();
-    }
-  });
 }
