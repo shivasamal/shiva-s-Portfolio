@@ -106,7 +106,7 @@ reduced.addEventListener('change', event => {
   paused = event.matches || preference === 'paused';
   applyMotion();
 });
-document.querySelectorAll('.hero-copy > *, .contact-layout > section, #inquiry').forEach((el, index) => {
+document.querySelectorAll('.contact-layout > section, #inquiry').forEach((el, index) => {
   play(el, { opacity: [0, 1], y: [14, 0] }, { duration: .5, delay: index * .055 });
 });
 if ('IntersectionObserver' in window) {
